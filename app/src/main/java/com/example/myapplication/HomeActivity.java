@@ -3,12 +3,10 @@ package com.example.myapplication;
 import android.content.Intent;
 import android.os.Bundle;
 
-import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
-import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -42,27 +40,6 @@ public class HomeActivity extends AppCompatActivity implements ProductAdapter.On
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, 0); // Set bottom padding to 0 to allow bottom nav to be flush
             return insets;
         });
-
-//        BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
-//
-//        bottomNavigationView.setSelectedItemId(R.id.nav_home);
-//
-//        bottomNavigationView.setOnItemSelectedListener(item -> {
-//            int id = item.getItemId();
-//
-//            if (id == R.id.nav_home){
-//                return true;
-//            } else if (id == R.id.nav_fav) {
-//                startActivity(new Intent(HomeActivity.this, FavoriteActivity.class));
-//                overridePendingTransition(0, 0);
-//                return true;
-//            } else if (id == R.id.nav_sell) {
-//                startActivity(new Intent(HomeActivity.this, SellActivity.class));
-//                overridePendingTransition(0, 0);
-//                return true;
-//            }
-//            return false;
-//        });
 
         setupCategoriesRecycler();
         setupProductsRecycler();
