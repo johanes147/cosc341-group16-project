@@ -23,6 +23,9 @@
             android:name=".SellActivity"
             android:exported="false" />
         <activity
+            android:name=".Chatting"
+            android:exported="false" />
+        <activity
             android:name=".FavoriteActivity"
             android:exported="false" />
         <activity
