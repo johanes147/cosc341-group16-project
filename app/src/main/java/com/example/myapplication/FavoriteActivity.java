@@ -2,6 +2,7 @@ package com.example.myapplication;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.widget.Button;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -49,6 +50,13 @@ public class FavoriteActivity extends AppCompatActivity implements ProductAdapte
         favoritesRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         favoritesRecyclerView.setAdapter(productAdapter);
 
+        Button goToChatButton = findViewById(R.id.btnGoToChat);
+        goToChatButton.setOnClickListener(v -> {
+            Intent intent = new Intent(FavoriteActivity.this, ChatListActivity.class);
+            startActivity(intent);
+        });
+
+
         MaterialButtonToggleGroup toggleGroup = findViewById(R.id.filterToggleGroup);
         toggleGroup.addOnButtonCheckedListener((group, checkedId, isChecked) -> {
             if (isChecked) {
@@ -79,13 +87,13 @@ public class FavoriteActivity extends AppCompatActivity implements ProductAdapte
                 finish();
                 return true;
 
-            /*} else if (itemId == R.id.nav_chat) {
+            } else if (itemId == R.id.nav_chat) {
                 // Navigate to ChatActivity (assuming you have one)
-                startActivity(new Intent(getApplicationContext(), ChatActivity.class));
+                startActivity(new Intent(getApplicationContext(), ChatListActivity.class));
                 finish();
                 return true;
 
-            } else if (itemId == R.id.nav_user) {
+            /*} else if (itemId == R.id.nav_user) {
                 // Navigate to ProfileActivity (assuming you have one)
                 startActivity(new Intent(getApplicationContext(), ProfileActivity.class));
                 finish();
