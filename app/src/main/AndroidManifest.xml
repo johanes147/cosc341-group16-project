@@ -12,7 +12,13 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MyApplication">
         <activity
-            android:name=".Chatting"
+            android:name=".ChatListActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ChattingAdapter"
+            android:exported="false" />
+        <activity
+            android:name=".ChattingActivity"
             android:exported="false" />
         <activity
             android:name=".FavoriteActivity"

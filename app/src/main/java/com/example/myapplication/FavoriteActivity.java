@@ -1,6 +1,8 @@
 package com.example.myapplication;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.widget.Button;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -44,6 +46,13 @@ public class FavoriteActivity extends AppCompatActivity {
         productAdapter = new ProductAdapter(favoriteProducts);
         favoritesRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         favoritesRecyclerView.setAdapter(productAdapter);
+
+        Button goToChatButton = findViewById(R.id.btnGoToChat);
+        goToChatButton.setOnClickListener(v -> {
+            Intent intent = new Intent(FavoriteActivity.this, ChatListActivity.class);
+            startActivity(intent);
+        });
+
 
         MaterialButtonToggleGroup toggleGroup = findViewById(R.id.filterToggleGroup);
         toggleGroup.addOnButtonCheckedListener((group, checkedId, isChecked) -> {

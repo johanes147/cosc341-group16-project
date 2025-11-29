@@ -3,13 +3,15 @@ package com.example.myapplication;
 import java.util.ArrayList;
 import java.util.List;
 
-// Create this file in its own User.java file
 public class User {
     private String userId;
     private String name;
     private String profileImageUrl;
     private List<String> favoriteProductIds;
-    // Add other details like rating, etc.
+    private List<Product> listings;
+
+    // Add messages for chat
+    private List<Message> messages;
 
     // Constructor
     public User(String userId, String name, String profileImageUrl) {
@@ -17,31 +19,31 @@ public class User {
         this.name = name;
         this.profileImageUrl = profileImageUrl;
         this.favoriteProductIds = new ArrayList<>();
+        this.messages = new ArrayList<>();
+        this.listings = new ArrayList<>();
     }
 
     // Getters
-    public String getUserId() {
-        return userId;
+    public String getUserId() { return userId; }
+    public String getName() { return name; }
+    public List<Product> getListings() {
+        return listings;
     }
-    public String getName() {
-        return name;
+
+    public void addListing(Product product) {
+        listings.add(product);
     }
-    public String getProfileImageUrl() {
-        return profileImageUrl;
-    }
+    public String getProfileImageUrl() { return profileImageUrl; }
     public List<String> getFavoriteProductIds() { return favoriteProductIds; }
+    public List<Message> getMessages() { return messages; }
 
+    // Favorite methods
     public void addFavorite(String productId) {
-        if(!favoriteProductIds.contains(productId)) {
-            favoriteProductIds.add(productId);
-        }
+        if (!favoriteProductIds.contains(productId)) favoriteProductIds.add(productId);
     }
+    public void removeFavorite(String productId) { favoriteProductIds.remove(productId); }
+    public boolean isFavorite(String productId) { return favoriteProductIds.contains(productId); }
 
-    public void removeFavorite(String productId) {
-        favoriteProductIds.remove(productId);
-    }
-
-    public boolean isFavorite(String productId) {
-        return favoriteProductIds.contains(productId);
-    }
+    // Chat methods
+    public void addMessage(Message message) { messages.add(message); }
 }
