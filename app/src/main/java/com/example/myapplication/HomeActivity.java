@@ -27,7 +27,6 @@ public class HomeActivity extends AppCompatActivity implements ProductAdapter.On
 
     private ProductRepository repository;
     private User currentUser;
-    private RecyclerView productsRecyclerView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,8 +48,8 @@ public class HomeActivity extends AppCompatActivity implements ProductAdapter.On
             return insets;
         });
 
-        setupCategoriesRecycler();
-        setupProductsRecycler();
+        //setupCategoriesRecycler();
+        //setupProductsRecycler();
 
 
         /// //////
@@ -59,21 +58,15 @@ public class HomeActivity extends AppCompatActivity implements ProductAdapter.On
         // 1. Initialize Repository and get data
         repository = ProductRepository.getInstance();
         currentUser = repository.getCurrentUser();
-        List<Product> allProducts = repository.getAllProducts();
 
         // 2. Setup the main products RecyclerView
         // Your activity_home.xml has a RecyclerView with the ID 'productsRecyclerView'
-        productsRecyclerView = findViewById(R.id.productsRecyclerView);
-
-        // The adapter needs 'this' as the listener because this activity implements OnFavoriteClickListener
-        productAdapter = new ProductAdapter(allProducts, this);
-
-        // Use a GridLayoutManager to show products in a 2-column grid, which is common for e-commerce apps
-        productsRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-        productsRecyclerView.setAdapter(productAdapter);
+        productsRecycler = findViewById(R.id.productsRecyclerView);
 
         // 3. Setup Bottom Navigation
         setupBottomNavigation();
+        setupCategoriesRecycler();
+        setupProductsRecycler();
     }
 
     private void setupCategoriesRecycler(){
@@ -97,18 +90,19 @@ public class HomeActivity extends AppCompatActivity implements ProductAdapter.On
     }
 
     private void setupProductsRecycler(){
-        productsRecycler = findViewById(R.id.productsRecyclerView);
-
-        LinearLayoutManager verticalManager = new LinearLayoutManager(this);
-        productsRecycler.setLayoutManager(verticalManager);
-        productsRecycler.setNestedScrollingEnabled(false);
-
         List<Product> productList = ProductRepository.getInstance().getAllProducts()
                 .stream().filter(p ->p.getStatus().equals("Available"))
                 .collect(Collectors.toList());
 
-        productAdapter = new ProductAdapter(productList, this);
-        productsRecycler.setAdapter(productAdapter);
+        if (productAdapter == null) {
+            LinearLayoutManager verticalManager = new LinearLayoutManager(this);
+            productsRecycler.setLayoutManager(verticalManager);
+            productsRecycler.setNestedScrollingEnabled(false);
+            productAdapter = new ProductAdapter(productList, this);
+            productsRecycler.setAdapter(productAdapter);
+        } else {
+            productAdapter.updateList(productList);
+        }
     }
 
     @Override
@@ -116,24 +110,9 @@ public class HomeActivity extends AppCompatActivity implements ProductAdapter.On
         super.onResume();
         // Load (or reload) the data here
         setupBottomNavigation();
-        loadAndDisplayProducts();
+        setupCategoriesRecycler();
+        setupProductsRecycler();
     }
-
-    private void loadAndDisplayProducts() {
-        // Get the latest list of products from the repository
-        List<Product> allProducts = repository.getAllProducts();
-
-        // If the adapter hasn't been created yet, create and set it
-        if (productAdapter == null) {
-            productAdapter = new ProductAdapter(allProducts, this);
-            productsRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-            productsRecyclerView.setAdapter(productAdapter);
-        } else {
-            // If the adapter already exists, just update its list
-            productAdapter.updateList(allProducts);
-        }
-    }
-
     private void setupBottomNavigation() {
         BottomNavigationView bnv = findViewById(R.id.bottom_navigation);
 
