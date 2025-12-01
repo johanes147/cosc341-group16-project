@@ -2,6 +2,7 @@ package com.example.myapplication;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.widget.EditText;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
@@ -33,6 +34,12 @@ public class HomeActivity extends AppCompatActivity implements ProductAdapter.On
         super.onCreate(savedInstanceState);
         // EdgeToEdge.enable(this); // This can sometimes interfere with padding, let's keep it simple for now.
         setContentView(R.layout.activity_home);
+
+        EditText searchBar = findViewById(R.id.searchBar);
+        searchBar.setFocusable(false);
+        searchBar.setOnClickListener(v -> {
+            startActivity(new Intent(HomeActivity.this, SearchActivity.class));
+        });
 
 
         // This listener handles padding for system bars (like status bar), which is good practice.
