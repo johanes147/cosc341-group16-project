@@ -29,9 +29,6 @@
             android:name=".ChatListActivity"
             android:exported="false" />
         <activity
-            android:name=".ChattingAdapter"
-            android:exported="false" />
-        <activity
             android:name=".ChattingActivity"
             android:exported="false" />
         <activity
