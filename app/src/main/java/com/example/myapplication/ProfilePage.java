@@ -30,19 +30,17 @@ public class ProfilePage extends AppCompatActivity {
     private void setupBottomNavigation() {
         BottomNavigationView bnv = findViewById(R.id.bottom_navigation);
 
-        // Set the "Home" item as the selected one since we are on the Home screen
-        bnv.setSelectedItemId(R.id.nav_home);
+        // Set the "Profile" item as the selected one since we are on the Chat screen
+        bnv.setSelectedItemId(R.id.nav_profile);
 
         bnv.setOnItemSelectedListener(item -> {
             int itemId = item.getItemId();
 
             if (itemId == R.id.nav_home) {
-                // We are already on the home screen, so do nothing.
+                startActivity(new Intent(getApplicationContext(), HomeActivity.class));
                 return true;
             } else if (itemId == R.id.nav_fav) {
                 startActivity(new Intent(getApplicationContext(), FavoriteActivity.class));
-                overridePendingTransition(0, 0); // Optional: removes the default animation
-                finish(); // Close HomeActivity to prevent a stack of activities
                 return true;
             } else if (itemId == R.id.nav_sell) {
                 startActivity(new Intent(getApplicationContext(), SellActivity.class));
@@ -50,6 +48,9 @@ public class ProfilePage extends AppCompatActivity {
                 return true;
             }  else if (itemId == R.id.nav_chat) {
                 startActivity(new Intent(getApplicationContext(), ChatListActivity.class));
+                return true;
+            } else if (itemId == R.id.nav_profile) {
+                // We are already on the profile screen, so do nothing.
                 return true;
             }
 

@@ -141,6 +141,9 @@ public class HomeActivity extends AppCompatActivity implements ProductAdapter.On
             }  else if (itemId == R.id.nav_chat) {
                 startActivity(new Intent(getApplicationContext(), ChatListActivity.class));
                 return true;
+            } else if (itemId == R.id.nav_profile) {
+                startActivity(new Intent(getApplicationContext(), ProfilePage.class));
+                return true;
             }
         // Add other navigation items (chat, profile) here in the future
             return false;
