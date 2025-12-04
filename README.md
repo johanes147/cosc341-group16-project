@@ -2,6 +2,8 @@
 
 Unicorner is an Android marketplace platform built specifically for post-secondary students. It aims to create a trusted, local community for buying and selling items, promoting reusability and helping students save money.Users can browse listings, find great deals on campus, sell their own items, and connect with other students through a built-in chat system.
 
+---
+
 ## Table of Contents
 
 - [Core Features](#core-features)
@@ -10,6 +12,8 @@ Unicorner is an Android marketplace platform built specifically for post-seconda
 - [Getting Started](#getting-started))
 - [Project Structure](#project-structure)
 - [Future Work](#future-work))
+
+---
 
 ## Core Features
 
@@ -29,6 +33,8 @@ Unicorner is an Android marketplace platform built specifically for post-seconda
 - **Favorites**: Users can "like" items and view them all in a dedicated Favorites screen.
 - **Review System**: After a product is marked as "Sold", users can leave a review for the seller.
 
+---
+
 ## Tech Stack & Architecture
 
 - **Language**: Java
@@ -38,6 +44,8 @@ Unicorner is an Android marketplace platform built specifically for post-seconda
 - **Asynchronous Operations**: ```Handler``` is used for simulating delayed network responses in the chat.
 - **Image Loading**: ```Glide``` for efficient loading and caching of product images into ImageViews.
 - **Navigation**: Android ```Intents``` are used for navigating between activities, with data passed via ```putExtra```.
+
+---
 
 ## Key Architectural Concepts
 
@@ -51,6 +59,8 @@ Unicorner is an Android marketplace platform built specifically for post-seconda
 - **Activity Lifecycle for UI Refresh** (```onResume```): To solve the "stale data" problem, activities like ```UserListingsActivity``` and ```HomeActivity``` use the ```onResume()``` lifecycle method. This forces the UI to refresh its data from the ```ProductRepository``` every time the screen becomes visible, ensuring that edits or deletions made in other activities are immediately reflected.
 - **Interface Callbacks for Loose Coupling**: The ```ProductAdapter``` uses an ```OnFavoriteClickListener``` interface to communicate clicks on the favorite button back to the ```HomeActivity```. This is a clean pattern that prevents the adapter from having a direct, rigid dependency on the activity.
 
+---
+
 ## Getting Started
 
 1. **Clone the repository**:
@@ -60,6 +70,8 @@ Unicorner is an Android marketplace platform built specifically for post-seconda
 2. **Open in Android Studio**: Open Android Studio, select `File` > `Open`, and navigate to the cloned project directory.
 3. **Build the Project**: Let Android Studio sync the Gradle files. This should happen automatically. If not, click the "Sync Project with Gradle Files" button.
 4. **Run the App**: Select an emulator or connect a physical device and click the "Run" button.
+
+---
 
 ## Project Structure
 A brief overview of the most important files and packages:
@@ -91,6 +103,7 @@ app/src/main/java/com/example/myapplication/
     ├── drawable/               # All images and icons
     └── menu/                   # Bottom navigation menu, status popup menu
 ```
+---
 
 ## Future Work
 
@@ -100,3 +113,12 @@ app/src/main/java/com/example/myapplication/
   - Firestore: As a real-time NoSQL database for products and chats.
   - Storage: To upload and host user images and videos.
 - Real-time Chat: Replace the Handler-based fake reply with a real-time solution using Firebase Realtime Database or Firestore listeners.
+
+---
+
+## Team
+
+- **Victor Yang**
+- **Yehezkiel Lbn Gaol**
+- **Anson Ho**
+- **Yohanes Turnip**
