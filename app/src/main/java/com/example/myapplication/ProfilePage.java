@@ -1,7 +1,9 @@
 package com.example.myapplication;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
@@ -19,7 +21,9 @@ public class ProfilePage extends AppCompatActivity {
     private RecyclerView listingsRecyclerView;
     private TextView seeAllButton;
     private TextView profileName;
+    private TextView emptyView;
 
+    @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -31,6 +35,8 @@ public class ProfilePage extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, 0); // Important: only top padding
             return insets;
         });
+
+        emptyView = findViewById(R.id.empty_view_profile_listings);
 
         // Get data
         ProductRepository repository = ProductRepository.getInstance();
@@ -48,6 +54,14 @@ public class ProfilePage extends AppCompatActivity {
 
         // Show only a preview (e.g., max 3 items)
         List<Product> previewListings = allUserListings.stream().limit(3).collect(Collectors.toList());
+
+        if (previewListings.isEmpty()) {
+            listingsRecyclerView.setVisibility(View.GONE);
+            emptyView.setVisibility(View.VISIBLE);
+        } else {
+            listingsRecyclerView.setVisibility(View.VISIBLE);
+            emptyView.setVisibility(View.GONE);
+        }
 
         // Use the new UserListingAdapter
         adapter = new UserListingAdapter(this, previewListings);
