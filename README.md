@@ -118,7 +118,7 @@ app/src/main/java/com/example/myapplication/
 
 ## Team
 
-- **Victor Yang**
-- **Yehezkiel Lbn Gaol**
-- **Anson Ho**
+- **Benedict Sergio Astan**
+- **Edgar Sipayung**
+- **Eleonora Ansella Kartono**
 - **Yohanes Turnip**
