@@ -36,7 +36,7 @@ Unicorner is an Android marketplace platform built specifically for post-seconda
 
 ---
 
-## Tech Stack & Architecture
+## Tech Stack and Architecture
 
 - **Language**: Java
 - **UI Toolkit**: Android XML with Material Design Components 3 (```MaterialButton```, ```CardView```, ```Chip```, ```BottomNavigationView```).
