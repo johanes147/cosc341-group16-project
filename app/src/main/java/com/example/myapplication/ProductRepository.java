@@ -55,6 +55,18 @@ public class ProductRepository {
                 .collect(Collectors.toList());
     }
 
+    // return all the listings a user has
+    public List<Product> getUserListings() {
+        if (currentUser == null) {
+            return new ArrayList<>(); // Return empty list if no user
+        }
+
+        String userId = currentUser.getUserId();
+        return allProducts.stream()
+                .filter(product -> product.getSellerId().equals(userId))
+                .collect(Collectors.toList());
+    }
+
     // --- User Management ---
 
     public User getCurrentUser() {
@@ -65,7 +77,12 @@ public class ProductRepository {
 
     private void loadSampleData() {
         // Create a sample user
-        currentUser = new User("user123", "Alex", "url_to_profile_pic");
+
+        // use this to test regular buyer or user
+        currentUser = new User("user123", "Alex Tanh", "url_to_profile_pic");
+
+        // use this to test the seller's profile page
+        //currentUser = new User("seller_jane_doe", "Jane Doe", "url_to_profile_pic");
         allUsers.add(currentUser);
 
         // The sellers
@@ -89,10 +106,10 @@ public class ProductRepository {
         String chairUrl = getImageUrl("Gaming Chair");
 
         // Create sample products
-        allProducts.add(new Product("prod1", "Used Textbook", 25.00, textbookUrl, "Available", sellerA.getUserId(), "Used", "Books", "Good", "Kelowna"));
-        allProducts.add(new Product("prod2", "Desk Lamp", 15.00, lampUrl, "Sold", sellerB.getUserId(), "Used", "Electronics", "Good", "Kelowna"));
-        allProducts.add(new Product("prod3", "Mini Fridge", 50.00, fridgeUrl, "Available", sellerC.getUserId(), "Used", "Electronics", "Good", "Kelowna"));
-        allProducts.add(new Product("prod4", "Gaming Chair", 120.00, chairUrl, "Pending", sellerA.getUserId(), "Used", "Furniture", "Good", "Kelowna"));
+        allProducts.add(new Product("prod1", "Used Textbook", 25.00, textbookUrl, "Available", sellerA.getUserId(), "Used - Good", "Books", "Good", "Kelowna"));
+        allProducts.add(new Product("prod2", "Desk Lamp", 15.00, lampUrl, "Sold", sellerB.getUserId(), "Used - Like New", "Electronics", "Good", "Kelowna"));
+        allProducts.add(new Product("prod3", "Mini Fridge", 50.00, fridgeUrl, "Available", sellerC.getUserId(), "Used - Fair", "Electronics", "Good", "Kelowna"));
+        allProducts.add(new Product("prod4", "Gaming Chair", 120.00, chairUrl, "Pending", sellerA.getUserId(), "Used - Good", "Furniture", "Good", "Kelowna"));
         allProducts.add(new Product("prod_sold_mic", "Old Microphone", 10.00, getImageUrl("Old Microphone"), "Sold", presetUserAlice.getUserId(), "Used - Fair", "Electronics", "Fair", "Kelowna"));
         allProducts.add(new Product("prod_sold_poster", "Vintage Poster", 5.00, getImageUrl("Vintage Poster"), "Sold", presetUserBob.getUserId(), "Used - Good", "Room Decor", "Good", "Kelowna"));
         allProducts.add(new Product("prod_sold_lamp", "Desk Lamp", 12.00, getImageUrl("Desk Lamp"), "Sold", presetUserCharlie.getUserId(), "Used - Good", "Electronics", "Good", "Kelowna"));
@@ -141,6 +158,34 @@ public class ProductRepository {
                 .filter(product -> productId.equals(product.getId()))
                 .findFirst()
                 .orElse(null); // Return null if no product is found
+    }
+
+    public Product updateProductStatus(String productId, String newStatus) {
+        Product product = getProductById(productId);
+        if (product != null) {
+            product.setStatus(newStatus);
+        }
+        return product;
+    }
+
+    public Product deleteProduct(String productId) {
+        Product product = getProductById(productId);
+        if (product != null) {
+            allProducts.remove(product);
+        }
+        return product;
+    }
+
+    public void updateProductDetails(String productId, String title, double price, String description, String location, String condition, String category) {
+        Product product = getProductById(productId);
+        if (product != null) {
+            product.setName(title);
+            product.setPrice(price);
+            product.setDescription(description);
+            product.setLocation(location);
+            product.setCondition(condition);
+            product.setCategory(category);
+        }
     }
 }
 

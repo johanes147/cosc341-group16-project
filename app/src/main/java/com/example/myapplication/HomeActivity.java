@@ -3,6 +3,7 @@ package com.example.myapplication;
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.EditText;
+import android.widget.ImageView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
@@ -48,13 +49,6 @@ public class HomeActivity extends AppCompatActivity implements ProductAdapter.On
             return insets;
         });
 
-        //setupCategoriesRecycler();
-        //setupProductsRecycler();
-
-
-        /// //////
-
-
         // 1. Initialize Repository and get data
         repository = ProductRepository.getInstance();
         currentUser = repository.getCurrentUser();
@@ -67,6 +61,13 @@ public class HomeActivity extends AppCompatActivity implements ProductAdapter.On
         setupBottomNavigation();
         setupCategoriesRecycler();
         setupProductsRecycler();
+
+        ImageView profileHomePage = findViewById(R.id.profileHomePage);
+
+        profileHomePage.setOnClickListener(v -> {
+            Intent intent = new Intent(HomeActivity.this, ProfilePage.class);
+            startActivity(intent);
+        });
     }
 
     private void setupCategoriesRecycler(){
@@ -95,7 +96,8 @@ public class HomeActivity extends AppCompatActivity implements ProductAdapter.On
 
     private void setupProductsRecycler(){
         List<Product> productList = ProductRepository.getInstance().getAllProducts()
-                .stream().filter(p ->p.getStatus().equals("Available"))
+                .stream().filter(p -> p.getStatus().equals("Available"))
+                .filter(p -> !(p.getSellerId().equals(currentUser.getUserId())))
                 .collect(Collectors.toList());
 
         if (productAdapter == null) {
@@ -140,6 +142,9 @@ public class HomeActivity extends AppCompatActivity implements ProductAdapter.On
                 return true;
             }  else if (itemId == R.id.nav_chat) {
                 startActivity(new Intent(getApplicationContext(), ChatListActivity.class));
+                return true;
+            } else if (itemId == R.id.nav_profile) {
+                startActivity(new Intent(getApplicationContext(), ProfilePage.class));
                 return true;
             }
         // Add other navigation items (chat, profile) here in the future
